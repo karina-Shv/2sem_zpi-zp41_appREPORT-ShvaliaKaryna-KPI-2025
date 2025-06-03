@@ -93,7 +93,7 @@ body{
     color: #2e4960;
 }
 .tasks:active{
-    box-shadow: 2 2px #707e8b;
+    box-shadow: 1px 2px #00050a;
     transform: translateY(2px);
 }
 .include{
