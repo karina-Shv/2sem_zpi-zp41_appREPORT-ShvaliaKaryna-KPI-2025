@@ -168,7 +168,7 @@
                     <div class="widget">
                         <p>Background color: <span class="color">-</span></p>
                         <button type="button" class="change-color">Change color</button>
-                    </div>                    
+                    </div>
                     <h2 style="text-align: center;">Код, результат</h2>
                     <img src="./scrin/4_9.png" class="selectorPhoto"; alt="form Code">
                     <img src="./scrin/4_9(1).png" class="selectorPhoto"; alt="form Code">
@@ -177,10 +177,30 @@
                 </div>
                 <div class="task4_10" id="task4_10">
                     <h2 style="text-align: center;">Завдання 10</h2>
-                    
+                    <div id="controls">
+                        <input type="number" min="1" max="100" step="1" />
+                        <button type="button" data-create>Create</button>
+                        <button type="button" data-destroy>Destroy</button>
+                    </div>
+                    <div id="boxes"></div>                    
+                    <h2 style="text-align: center;">Код, результат</h2>
+                    <img src="./scrin/4_10.png" style="width: 250px;"; alt="form Code">
+                    <img src="./scrin/4_10(1).png" class="selectorPhoto"; alt="form Code">
+                    <img src="./scrin/4_10(2).png" class="selectorPhoto"; alt="form Code"> 
+                    <img src="./scrin/4_10(3).png" class="selectorPhoto"; alt="form Code">
                 </div>
                 <div class="summary" id="summary">
                     <h2 style="text-align: center;">Висновок</h2>
+                    <p> 
+                        У результаті виконання лабораторної роботи було досягнуто основної мети – отримання практичних навичок роботи з класами, подіями, об'єктною моделлю документа (DOM) та реалізації функціоналу за допомогою мови JavaScript з дотриманням принципів модульності коду. У звіті були реалізовані наступні завдання: 
+                        1.Створення простих інтерактивних форм введення і взаємодії з DOM (вивід значення, приховування пароля, робота з подіями). 
+                        2.Делегування подій та обробка кліків користувача. 
+                        3.Робота з формами, їх валідація та обробка. 
+                        4.Маніпуляція з DOM-структурою – динамічне створення та видалення елементів, аналіз списків елементів, зміна стилів за подією. 
+                        5.Показано приклади використання стрілочних функцій, callback-функцій, делегування та роботи з об'єктом події. 
+                        6.Застосовано сучасний підхід до організації вебсторінки з використанням CSS-стилів, Google Fonts, а також динамічної навігації між розділами сторінки. 
+                        Таким чином, дана робота дозволила набути комплексних знань із теми "Обробка подій, DOM та організація JS-коду", що є фундаментальними для створення інтерактивних та модульних вебзастосунків. Отримані навички будуть корисними при розробці як клієнтської частини вебсайтів, так і в подальшому вивченні фреймворків на зразок React чи Vue.js.
+                    </p>
                 </div>
             </div>          
         </div>
@@ -322,6 +342,38 @@
             document.getElementById("btn_task4_10").addEventListener('click', () => {
                 hideAll();
                 sections.task4_10.style.display = 'block';
+                function getRandomHexColor() {
+                return `#${Math.floor(Math.random() * 16777215)
+                    .toString(16)
+                    .padStart(6, 0)}`;}
+                const inputEl = document.querySelector('#controls input');
+                const createBtn = document.querySelector('[data-create]');
+                const destroyBtn = document.querySelector('[data-destroy]');
+                const boxesContainer = document.getElementById('boxes');
+                createBtn.addEventListener('click', () => {
+                const amount = parseInt(inputEl.value);
+                if (amount >= 1 && amount <= 100) {
+                    destroyBoxes();
+                    createBoxes(amount);
+                    inputEl.value = '';
+                } else {
+                    alert('Введіть число від 1 до 100');
+                }});
+                destroyBtn.addEventListener('click', destroyBoxes);
+                function createBoxes(amount) {
+                const boxes = [];
+                let size = 30;
+                for (let i = 0; i < amount; i++) {
+                    const box = document.createElement('div');
+                    box.style.width = `${size}px`;
+                    box.style.height = `${size}px`;
+                    box.style.backgroundColor = getRandomHexColor();
+                    box.style.margin = '5px';
+                    boxes.push(box);
+                    size += 10;}
+                boxesContainer.append(...boxes);}
+                function destroyBoxes() {
+                boxesContainer.innerHTML = '';}
             });
 
             document.getElementById("btn_summary").addEventListener('click', () => {
